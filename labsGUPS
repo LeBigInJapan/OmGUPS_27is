@@ -1,0 +1,58 @@
+#include "stdio.h"
+#include "math.h"
+#include "stdlib.h"
+ 
+// Вариант 3
+double eps = 0.000001;
+ 
+double Ratio(double a, double b)
+{
+    return (a / b) * 100;
+}
+ 
+int fact(int n)
+{
+    int i, res = 1;
+ 
+    for (i = 1; i <= n; i++)
+        res = res * i;
+ 
+    return res;
+}
+ 
+double MySum(double r, int n, double x, double a)
+{
+    double p = 0;
+    double k = 0;
+ 
+    k = pow((-1), n) * pow(x, 2 * n) / fact(2 * n);
+ 
+    while (k > eps)
+    {
+    p += k;
+    n++;
+    k = pow((-1), n) * pow(x, 2 * n) / fact(2 * n);
+    }
+	
+    printf("\n\nN = %i", n);
+    return r + p;
+ 
+}
+ 
+void main()
+{
+    double x = 0, a = 3, f, fn;
+    int count = 0;
+
+	system("chcp 1251>NULL"); 
+	
+	
+    for (x = 0; (x < 700) && (count < 10); x = x + 0.01)
+    {
+        f = MySum(0, 0, x, a); fn = cos(x);
+        printf(", x = %lf, a = %lf", x, a);
+        printf("\nSum = %lf, F = %lf, Точность ряда = %lf", f, fn, Ratio(f, fn));
+        count++;
+    }
+	
+}
